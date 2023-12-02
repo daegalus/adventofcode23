@@ -3,46 +3,43 @@ import std.stdio.STDOUT
 import std.int.Format
 import std.cmp.Equal
 import std.option.Option
+import std.iter.Stream
 
 let NUMS = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 class async Main {
   fn async main {
-    let file = ReadOnlyFile.new('src/day01-sample.txt').expect('failed to create the file')
+    let file: ReadOnlyFile = ReadOnlyFile.new('src/day01-sample.txt').expect('failed to create the file')
 
-    let data = ByteArray.new
+    let data: ByteArray = ByteArray.new
     file.read_all(data)
 
-    let strData = data.drain_to_string
-    let splitStrData = strData.split("\n")
+    let strData: String = data.drain_to_string
+    let splitStrData: Stream[String] = strData.split("\n")
 
-    let mut digits = []
-
-    splitStrData.each fn (line) {
-      let first = line.chars.find fn move (char) {
+    let digits = splitStrData.reduce([] as Array[Int]) fn (digits: Array[Int], line: String) {
+      let first: Option[String] = line.chars.find fn move (char: String) {
         contains(NUMS, char)
       }
 
-      let last = line.chars.to_array.reverse_iter.find fn move (char) {
+      let last: Option[String] = line.chars.to_array.reverse_iter.find fn move (char: String) {
         contains(NUMS, char)
       }
 
-       if (first != Option.None and last != Option.None){
-        let digit = Int.parse(first.unwrap_or('') + last.unwrap_or(''), Format.Decimal).expect("failed to parse")
+      if (first != Option.None and last != Option.None){
+        let digit: Int = Int.parse(first.unwrap_or('') + last.unwrap_or(''), Format.Decimal).expect("failed to parse")
         digits.push(digit)
-       }
+      }
+      digits
     }
 
-    let mut sum = 0
-    digits.iter.each fn move (num) {
-      sum += num
-    }
+    let sum: Int = digits.iter.reduce(0) fn (sum, digit) { sum + digit}    
 
     STDOUT.new.write_string(sum.to_string).expect('failed to write to STDOUT')
   }
 
   fn contains(arr: ref Array[String], value: ref String) -> Bool {
-    let mut idx = 0
+    let mut idx: Int = 0
 
     while idx < arr.size {
       if arr.get(idx) == value { return true }
