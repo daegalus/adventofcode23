@@ -9,7 +9,7 @@ let NUMS = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 class async Main {
   fn async main {
-    let file: ReadOnlyFile = ReadOnlyFile.new('src/day01-sample.txt').expect('failed to create the file')
+    let file: ReadOnlyFile = ReadOnlyFile.new('../crystal/data/day01.txt').expect('failed to create the file')
 
     let data: ByteArray = ByteArray.new
     file.read_all(data)
@@ -26,7 +26,7 @@ class async Main {
         contains(NUMS, char)
       }
 
-      if (first != Option.None and last != Option.None){
+      if (first.some? and last.some?){
         let digit: Int = Int.parse(first.unwrap_or('') + last.unwrap_or(''), Format.Decimal).expect("failed to parse")
         digits.push(digit)
       }
@@ -35,7 +35,9 @@ class async Main {
 
     let sum: Int = digits.iter.reduce(0) fn (sum, digit) { sum + digit}    
 
-    STDOUT.new.write_string(sum.to_string).expect('failed to write to STDOUT')
+    STDOUT.new.write_string("Part 1: " + sum.to_string + "\n").expect('failed to write to STDOUT')
+
+    STDOUT.new.write_string("Part 2: " + sum.to_string + "\n").expect('failed to write to STDOUT')
   }
 
   fn contains(arr: ref Array[String], value: ref String) -> Bool {
