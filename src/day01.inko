@@ -1,0 +1,61 @@
+import std.fs.file.ReadOnlyFile
+import std.stdio.STDOUT
+import std.int.Format
+import std.cmp.Equal
+import std.option.Option
+
+let NUMS = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+class async Main {
+  fn async main {
+    let file = ReadOnlyFile.new('src/day01-sample.txt').expect('failed to create the file')
+
+    let data = ByteArray.new
+    file.read_all(data)
+
+    let strData = data.drain_to_string
+    let splitStrData = strData.split("\n")
+
+    let mut digits = []
+
+    splitStrData.each fn (line) {
+      let mut first = ''
+      let mut last = ''
+      line.chars.each fn move (char) {
+        if first == '' and contains(NUMS, char) {
+          first := char
+        }
+      }
+
+      line.chars.to_array.reverse_iter.each fn move (char) {
+        STDOUT.new.write_string(char + "\n").expect('failed to write to STDOUT')
+        if last == '' and contains(NUMS, char) {
+          last := char
+        }
+      }
+
+       STDOUT.new.write_string(first + "\n").expect('failed to write to STDOUT')
+       STDOUT.new.write_string(last + "\n").expect('failed to write to STDOUT')
+      let digit = Int.parse(first + last, Format.Decimal).expect("failed to parse")
+      digits.push(digit)
+    }
+
+    let mut sum = 0
+    digits.iter.each fn move (num) {
+      sum += num
+    }
+
+    STDOUT.new.write_string(sum.to_string).expect('failed to write to STDOUT')
+  }
+
+  fn contains(arr: ref Array[String], value: ref String) -> Bool {
+    let mut idx = 0
+
+    while idx < arr.size {
+      if arr.get(idx) == value { return true }
+      idx += 1
+    }
+
+    false
+  }
+}
