@@ -19,25 +19,18 @@ class async Main {
     let mut digits = []
 
     splitStrData.each fn (line) {
-      let mut first = ''
-      let mut last = ''
-      line.chars.each fn move (char) {
-        if first == '' and contains(NUMS, char) {
-          first := char
-        }
+      let first = line.chars.find fn move (char) {
+        contains(NUMS, char)
       }
 
-      line.chars.to_array.reverse_iter.each fn move (char) {
-        STDOUT.new.write_string(char + "\n").expect('failed to write to STDOUT')
-        if last == '' and contains(NUMS, char) {
-          last := char
-        }
+      let last = line.chars.to_array.reverse_iter.find fn move (char) {
+        contains(NUMS, char)
       }
 
-       STDOUT.new.write_string(first + "\n").expect('failed to write to STDOUT')
-       STDOUT.new.write_string(last + "\n").expect('failed to write to STDOUT')
-      let digit = Int.parse(first + last, Format.Decimal).expect("failed to parse")
-      digits.push(digit)
+       if (first != Option.None and last != Option.None){
+        let digit = Int.parse(first.unwrap_or('') + last.unwrap_or(''), Format.Decimal).expect("failed to parse")
+        digits.push(digit)
+       }
     }
 
     let mut sum = 0

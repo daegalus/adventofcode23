@@ -1,0 +1,20 @@
+name: adventofcode
+version: 0.1.0
+
+authors:
+  - Yulian Kuncheff <yulian@kuncheff.com>
+
+targets:
+  advent:
+    main: src/advent.cr
+
+crystal: 1.9.2
+
+dependencies:
+
+libraries:
+  libz: "*"
+  libssl: "*"
+  libcrypt: "*"
+
+license: ISC
