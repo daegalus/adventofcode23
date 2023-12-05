@@ -4,8 +4,8 @@ require "file_utils"
 
 require "./day01"
 require "./day02"
-# require "./day03"
-# require "./day04"
+require "./day03"
+require "./day04"
 # require "./day05"
 # require "./day06"
 # require "./day07"
@@ -34,8 +34,8 @@ module Advent
   def self.run
     Advent::Day01.run
     Advent::Day02.run
-    # Advent::Day03.run
-    # Advent::Day04.run
+    Advent::Day03.run
+    Advent::Day04.run
     # Advent::Day05.run
     # Advent::Day06.run
     # Advent::Day07.run
