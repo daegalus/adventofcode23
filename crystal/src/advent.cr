@@ -7,7 +7,7 @@ require "./day02"
 require "./day03"
 require "./day04"
 require "./day05"
-# require "./day06"
+require "./day06"
 # require "./day07"
 # require "./day08"
 # require "./day09"
@@ -37,7 +37,7 @@ module Advent
     Advent::Day03.run
     Advent::Day04.run
     Advent::Day05.run
-    # Advent::Day06.run
+    Advent::Day06.run
     # Advent::Day07.run
     # Advent::Day08.run
     # Advent::Day09.run

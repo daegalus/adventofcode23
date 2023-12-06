@@ -29,12 +29,11 @@ module Advent::Day01
     }
     Advent.answer(part: 1, answer: "#{answer1}")
 
-    answer2 = data.each_line
-      .sum { |str|
-        digit1 = str.match!(/(#{NUMS.keys.join('|')})/)[1]
-        digit2 = str.match!(/.*(#{NUMS.keys.join('|')})/)[1]
-        NUMS[digit1] * 10 + NUMS[digit2]
-      }
+    answer2 = data.each_line.sum { |str|
+      digit1 = str.match!(/(#{NUMS.keys.join('|')})/)[1]
+      digit2 = str.match!(/.*(#{NUMS.keys.join('|')})/)[1]
+      NUMS[digit1] * 10 + NUMS[digit2]
+    }
     Advent.answer(part: 2, answer: "#{answer2}")
   end
 end
