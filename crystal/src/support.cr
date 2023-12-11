@@ -166,6 +166,10 @@ class Vector
   def to_s(io)
     io << "(#{@x}, #{@y})"
   end
+
+  def to_tuple
+    Tuple.new(@x, @y)
+  end
 end
 
 module Neighborhood(P, V)
