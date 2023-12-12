@@ -22,18 +22,23 @@ module Advent::Day01
 
   def self.run
     data = Advent.input(day: 1, title: "Trebuchet?!")
+    answer1 = 0
+    
+    answer1, time1 = Advent.time do
+      data.each_line.sum do |str|
+        digits = str.scan(/\d/)
+        digits[0][0].to_i * 10 + digits[-1][0].to_i
+      end
+    end
+    Advent.answer(part: 1, answer: "#{answer1}", time: time1)
 
-    answer1 = data.each_line.sum { |str|
-      digits = str.scan(/\d/)
-      digits[0][0].to_i * 10 + digits[-1][0].to_i
-    }
-    Advent.answer(part: 1, answer: "#{answer1}")
-
-    answer2 = data.each_line.sum { |str|
-      digit1 = str.match!(/(#{NUMS.keys.join('|')})/)[1]
-      digit2 = str.match!(/.*(#{NUMS.keys.join('|')})/)[1]
-      NUMS[digit1] * 10 + NUMS[digit2]
-    }
-    Advent.answer(part: 2, answer: "#{answer2}")
+    answer2, time2 = Advent.time do
+      data.each_line.sum do |str|
+        digit1 = str.match!(/(#{NUMS.keys.join('|')})/)[1]
+        digit2 = str.match!(/.*(#{NUMS.keys.join('|')})/)[1]
+        NUMS[digit1] * 10 + NUMS[digit2]
+      end
+    end
+    Advent.answer(part: 2, answer: "#{answer2}", time: time2)
   end
 end

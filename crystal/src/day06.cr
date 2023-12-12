@@ -3,11 +3,11 @@ module Advent::Day06
   def self.run
     data = Advent.input(day: 6, title: "Wait For It")
 
-    answer1 = part1(data)
-    Advent.answer(part: 1, answer: "#{answer1}")
+    answer1, time1 = Advent.time { part1(data) }
+    Advent.answer(part: 1, answer: "#{answer1}", time: time1)
 
-    answer2 = part2(data)
-    Advent.answer(part: 2, answer: "#{answer2}")
+    answer2, time2 = Advent.time { part2(data) }
+    Advent.answer(part: 2, answer: "#{answer2}", time: time2)
   end
 
   def self.part1(data)

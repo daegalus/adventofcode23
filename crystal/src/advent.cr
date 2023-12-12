@@ -13,7 +13,7 @@ require "./day08"
 require "./day09"
 require "./day10"
 require "./day11"
-# require "./day12"
+require "./day12"
 # require "./day13"
 # require "./day14"
 # require "./day15"
@@ -43,7 +43,7 @@ module Advent
     Advent::Day09.run
     Advent::Day10.run
     Advent::Day11.run
-    # Advent::Day12.run
+    Advent::Day12.run
     # Advent::Day13.run
     # Advent::Day14.run
     # Advent::Day15.run
@@ -79,8 +79,16 @@ module Advent
     end
   end
 
-  def self.answer(part : Int32, answer : String | Number | Nil | Char)
-    puts "  [Part #{part}] #{answer.to_s.colorize.yellow}".colorize.light_blue.bold
+  def self.answer(part : Int32, answer : String | Number | Nil | Char, time : Time::Span)
+    puts "  [Part #{part}] #{answer.to_s.colorize.yellow} [#{time.milliseconds}ms]".colorize.light_blue.bold
+  end
+
+  def self.time(&)
+    answer = nil
+    time = Time.measure do
+      answer = yield
+    end
+    return { answer, time }
   end
 
   def self.download(year : Int32, day : Int32)
